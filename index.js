@@ -20,10 +20,10 @@ const defaultOpts = {
   marker: "_____TROLOLOLOL",
   // Regexp that finds the new chunk filename in between the markers after
   // Rollup has done its thing.
-  filenameRegexp: /["'].+?\.js\1/
+  filenameRegexp: /["'][^"']+\.js["']/
 };
 
-export default function(opts) {
+module.exports = function(opts) {
   opts = { ...defaultOpts, ...opts };
   return {
     transform(code, id) {
@@ -38,6 +38,7 @@ export default function(opts) {
         Import(node) {}
       });
 
+      const warn = this.warn.bind(this);
       // Collect all the worker calls in this array.
       const newWorkerCalls = [];
       walker.simple(
@@ -45,6 +46,13 @@ export default function(opts) {
         {
           NewExpression(node) {
             if (node.callee.name !== "Worker") {
+              return;
+            }
+            if (!/^\.*\//.test(node.arguments[0].value)) {
+              warn(
+                `For workz0r, worker file paths must be relative or absolute, i.e. start with /, ./ or ../ (just like dynamic import!). ` +
+                  `Ignoring "${node.arguments[0].value}".`
+              );
               return;
             }
             newWorkerCalls.push(node.arguments[0]);
@@ -97,4 +105,4 @@ export default function(opts) {
       };
     }
   };
-}
+};
