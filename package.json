@@ -1,0 +1,23 @@
+{
+  "name": "rollup-plugin-workz0r",
+  "version": "0.1.0",
+  "description": "Rollup plugin to make workers “just work”",
+  "main": "index.js",
+  "scripts": {
+    "fmt": "prettier --write *.js *.md *.json"
+  },
+  "author": "Surma <surma@google.com>",
+  "license": "Apache-2.0",
+  "devDependencies": {
+    "prettier": "1.16.4",
+    "rollup": "1.4.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/surma/rollup-plugin-workz0r"
+  },
+  "dependencies": {
+    "acorn-walk": "^6.1.1",
+    "magic-string": "^0.25.0"
+  }
+}
