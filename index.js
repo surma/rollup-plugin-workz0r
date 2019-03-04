@@ -20,7 +20,9 @@ const defaultOpts = {
   marker: "_____TROLOLOLOL",
   // Regexp that finds the new chunk filename in between the markers after
   // Rollup has done its thing.
-  filenameRegexp: /["'][^"']+\.js["']/
+  filenameRegexp: /["'][^"']+\.js["']/,
+  // A callback that will be called with each worker module id
+  onWorkerModule: () => {}
 };
 
 module.exports = function(opts) {
@@ -48,10 +50,11 @@ module.exports = function(opts) {
             if (node.callee.name !== "Worker") {
               return;
             }
-            if (!/^\.*\//.test(node.arguments[0].value)) {
+            const workerFile = node.arguments[0].value;
+            if (!/^\.*\//.test(workerFile)) {
               warn(
                 `For workz0r, worker file paths must be relative or absolute, i.e. start with /, ./ or ../ (just like dynamic import!). ` +
-                  `Ignoring "${node.arguments[0].value}".`
+                  `Ignoring "${wokerFile}".`
               );
               return;
             }
@@ -68,6 +71,7 @@ module.exports = function(opts) {
       // will be changed by Rollup as well.
       const ms = new MagicString(code);
       newWorkerCalls.forEach(node => {
+        this.resolveId(node.value).then(id => opts.onWorkerModule(id));
         // Insert marker
         ms.appendLeft(node.start, `"${opts.marker}_start" + import(`);
         ms.appendRight(node.end, `) + "${opts.marker}_end"`);
