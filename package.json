@@ -1,6 +1,6 @@
 {
   "name": "rollup-plugin-workz0r",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Rollup plugin to make workers “just work”",
   "main": "index.js",
   "scripts": {
