@@ -22,12 +22,12 @@ export default {
 
 ## The modules-in-workers problems
 
-At the time of writing, no browser has support for ES6 modules in workers. Until browsers have caught up, I wrote [`rollup-plugin-loadz0r`][loadz0r] to make modules in workers “just work”. If you want to use these two plugins in conjunction, some extra plumbing is needed to let `loadz0r` know which chunks are worker chunks and need the module loader code:
+At the time of writing, no browser has support for ES6 modules in workers. Until browsers have caught up, I wrote [`rollup-plugin-loadz0r`][loadz0r] to make modules in workers “just work”. If you want to use these two plugins in conjunction, some extra plumbing is needed to let `loadz0r` know which chunks are worker chunks, as they need the loader code, too:
 
 ```js
 // rollup.config.js
-const loadz0r = require("rollup-plugin-loadz0r");
-const workz0r = require("../");
+import loadz0r from "rollup-plugin-loadz0r";
+import workz0r from "rollup-plugin-workz0r";
 
 const workerModules = new Set();
 export default {
@@ -41,7 +41,8 @@ export default {
       onWorkerModule: id => workerModules.add(id)
     }),
     loadz0r({
-      // `prependLoader` should return `true` if the loader code should be prependend.
+      // `prependLoader` will be called for every chunk. if returns `true`,
+      // the loader code will be prepended.
       prependLoader: (chunk, inputs) => {
         // If the chunk contains one of the worker modules, prepend a loader.
         if (Object.keys(chunk.modules).some(mod => workerModules.has(mod))) {
