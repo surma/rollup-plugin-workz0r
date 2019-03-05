@@ -41,7 +41,7 @@ export default {
       onWorkerModule: id => workerModules.add(id)
     }),
     loadz0r({
-      // `prependLoader` will be called for every chunk. if returns `true`,
+      // `prependLoader` will be called for every chunk. If it returns `true`,
       // the loader code will be prepended.
       prependLoader: (chunk, inputs) => {
         // If the chunk contains one of the worker modules, prepend a loader.
