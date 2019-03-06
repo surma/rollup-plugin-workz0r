@@ -29,6 +29,8 @@ module.exports = function(opts) {
   opts = { ...defaultOpts, ...opts };
   return {
     transform(code, id) {
+      if (!/new\s+Worker/.test(code)) return;
+
       const ast = this.parse(code);
 
       // The walker calls a method for each node type on a “base” before calling
@@ -63,6 +65,8 @@ module.exports = function(opts) {
         },
         newBase
       );
+
+      if (newWorkerCalls.length === 0) return;
 
       // Surround the worker constructor call with markers so we can find it
       // later and inject a dynamic import so that Rollup has to create an edge
