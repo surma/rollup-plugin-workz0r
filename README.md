@@ -22,7 +22,7 @@ export default {
 
 ## The modules-in-workers problems
 
-At the time of writing, no browser has support for ES6 modules in workers. Until browsers have caught up, I wrote [`rollup-plugin-loadz0r`][loadz0r] to make modules in workers “just work”. If you want to use these two plugins in conjunction, some extra plumbing is needed to let `loadz0r` know which chunks are worker chunks, as they need the loader code, too:
+At the time of writing, no browser has support for ES6 modules in workers. Until browsers have caught up, I wrote [`rollup-plugin-loadz0r`](https://github.com/surma/rollup-plugin-loadz0r) to make modules in workers “just work”. If you want to use these two plugins in conjunction, some extra plumbing is needed to let `loadz0r` know which chunks are worker chunks, as they need the loader code, too:
 
 ```js
 // rollup.config.js
