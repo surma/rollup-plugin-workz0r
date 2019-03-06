@@ -54,7 +54,7 @@ module.exports = function(opts) {
             if (!/^\.*\//.test(workerFile)) {
               warn(
                 `For workz0r, worker file paths must be relative or absolute, i.e. start with /, ./ or ../ (just like dynamic import!). ` +
-                  `Ignoring "${wokerFile}".`
+                  `Ignoring "${workerFile}".`
               );
               return;
             }
