@@ -6,7 +6,7 @@ An ill-named [rollup] plugin to add worker bundling support. With this plugin yo
 $ npm install --save rollup-plugin-workz0r
 ```
 
-> Note: If you are a webpack user, take a look at [worker-loader](https://github.com/GoogleChromeLabs/worker-plugin).
+> Note: If you are a webpack user, take a look at [worker-[plugin](https://github.com/GoogleChromeLabs/worker-plugin).
 
 ## Usage
 
