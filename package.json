@@ -10,7 +10,7 @@
   "license": "Apache-2.0",
   "devDependencies": {
     "prettier": "1.16.4",
-    "rollup": "1.6.0"
+    "rollup": "1.7.0"
   },
   "repository": {
     "type": "git",
