@@ -1,3 +1,5 @@
+# Deprecated. Please use [rollup-plugin-off-main-thread](https://github.com/surma/rollup-plugin-off-main-thread)
+
 # rollup-plugin-workz0r
 
 An ill-named [rollup] plugin to add worker bundling support. With this plugin you can just use the `new Worker("somefile.js")` constructor and rollup will bundle that file and its dependencies into a separate chunk — similar to what happens with a dynamic import.
